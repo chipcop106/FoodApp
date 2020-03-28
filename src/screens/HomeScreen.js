@@ -1,18 +1,41 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {
- Text,TextInput,View,StyleSheet
+ Text,View,StyleSheet,ScrollView
 } from 'react-native';
 import SearchBar from '../components/SearchBar';
-
+import useRestaurants from './../hooks/useRestaurants';
+import RestaurantList from './../components/RestaurantList'
 const HomeScreen = () => {
-  return (
-    <View>
-        <SearchBar/>
-    </View>
-  );
+    const [term, setTerm] = useState("");
+    const [searchApi,restaurants,errorMessage] = useRestaurants();
+    const filterResultByPrice = (price) =>{
+        // price === '$' | '$$' | '$$$'
+        return restaurants.filter(restaurant => restaurant.price === price);
+    }
+    return (
+        <>
+            <View style={{marginBottom:15}}>
+                <SearchBar 
+                term={term} 
+                onTermChange= {setTerm}
+                onTermSubmit={() => searchApi(term)}
+                />
+            </View>
+           
+            {errorMessage ? <Text>{errorMessage}</Text> : null}
+            <ScrollView>
+                <RestaurantList restaurants = {filterResultByPrice('$')} title="Cost Effective"/>
+                <RestaurantList restaurants = {filterResultByPrice('$$')} title="Bit Pricier"/>
+                <RestaurantList restaurants = {filterResultByPrice('$$$')} title="Big Spencer"/>
+            </ScrollView>
+        </>
+    );
 };
 const styles = StyleSheet.create({
-
+    container:{
+        paddingVertical:15,
+        flex:1
+    }
 });
 
 export default HomeScreen;
