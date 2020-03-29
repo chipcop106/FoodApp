@@ -38,17 +38,17 @@ const RestaurantDetailScreen = ({route,navigation}) =>{
   
     return (
         loading ? (<View style={styles.loading}><Text style={{color:"red"}}>Đang tải dữ liệu...</Text></View>) : 
-        (<View style={styles.cardStyle}>
+        (<View style={{}}>
             <View style={styles.imageContainer}>
                 <Image 
                     source={{uri:image_url}}
                     style={styles.banner}
                 />
             </View>
-          
+            <View style={styles.contentWrap}>
             <Text style={styles.title}>{name}</Text>
             <View style={styles.metaContainer}>
-                <Text style={styles.meta}>Status: {hours.is_open_now === true ? (<Text style={{color:"green"}}>Opening</Text>) : (<Text style={{color:"red"}}>Closed</Text>)}</Text>
+                <Text style={styles.meta}>Status: {hours && hours.is_open_now && hours.is_open_now === true ? (<Text style={{color:"green"}}>Opening</Text>) : (<Text style={{color:"red"}}>Closed</Text>)}</Text>
                 <Text style={styles.seperate}>|</Text>
                 <Text style={styles.meta}>Rating: {rating} <Icon name="star" color="#E8C960" size={20} /></Text>  
                 <Text style={styles.seperate}>|</Text>
@@ -64,11 +64,15 @@ const RestaurantDetailScreen = ({route,navigation}) =>{
                     horizontal={true}
                 />
             </View>
+            </View>
         </View>)
     )
 }
 
 const styles = StyleSheet.create({
+    contentWrap:{
+        paddingHorizontal:15
+    }, 
     loading:{
         flexDirection:"column",
         flex:1,

@@ -17,6 +17,7 @@ const SearchBar = ({term, onTermChange,onTermSubmit}) => {
         style={styles.input} value={term}
         onChangeText={onTermChange} 
         onEndEditing = {onTermSubmit}
+        placeholderTextColor="#ccc"
         />
                
         <View style={styles.icon}>
@@ -43,7 +44,8 @@ const styles = StyleSheet.create({
     },
     input:{
         flex:1,
-        fontSize:18
+        fontSize:18,
+        color:"#000"
     }
 });
 
