@@ -1,7 +1,12 @@
 import React from 'react';
 import {View,Text,StyleSheet,FlatList} from 'react-native';
 import RestaurantCard from './RestaurantCard';
-export default RestaurantList = ({title,restaurants}) => {
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import * as RootNavigation from './../../App';
+const RestaurantList = ({title,restaurants}) => {
+    if(!restaurants.length){
+        return null;
+    }
     return (
         <View style={{      
             borderBottomWidth:1,
@@ -15,7 +20,17 @@ export default RestaurantList = ({title,restaurants}) => {
                 showsHorizontalScrollIndicator={false}
                 keyExtractor = {(restaurant) => restaurant.id}
                 renderItem = {({item}) =>{
-                    return <RestaurantCard name={item.name} imageSrc={item.image_url} rating={item.rating} review={item.review_count}/>
+                    return (
+                        <TouchableOpacity onPress={() => RootNavigation.navigate('RestaurantDetail',{itemId:item.id},)}>
+                        <RestaurantCard 
+                        name={item.name} 
+                        imageSrc={item.image_url} 
+                        rating={item.rating} 
+                        review={item.review_count}
+                        />
+                    </TouchableOpacity>
+                    )
+                 
                 }}
                 style={styles.list}
             />
@@ -32,3 +47,5 @@ const styles = StyleSheet.create({
         marginBottom:15,
     }
 });
+
+export default RestaurantList;

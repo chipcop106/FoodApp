@@ -20,7 +20,7 @@ const SearchBar = ({term, onTermChange,onTermSubmit}) => {
         />
                
         <View style={styles.icon}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress= {onTermSubmit}>
                 <Icon name="ios-search" color="#000" size={35} />
             </TouchableOpacity>
         </View>

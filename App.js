@@ -16,28 +16,32 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/screens/HomeScreen';
-// const App = () => {
-//   return (
-//     <>
-//       <StatusBar barStyle="dark-content" />
-//       <SafeAreaView>
-//           <TaskManagerScreen />
-//        </SafeAreaView>
-//     </>
-//   );
-// };
+import RestaurantDetailScreen from './src/screens/RestaurantDetailScreen';
+
+export const navigationRef = React.createRef();
+
+export function navigate(name, params) {
+  navigationRef.current?.navigate(name, params);
+}
+
 const Stack = createStackNavigator ();
+
 function RootStack(){
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <Stack.Navigator
       initialRouteName="Home"
-      screenOptions={{ gestureEnabled: false }}
+      screenOptions={{ gestureEnabled: true }}
       >
         <Stack.Screen
           name="Home"
           component={HomeScreen}
           options={{ title: 'Business Search' }}
+        />
+          <Stack.Screen
+          name="RestaurantDetail"
+          component={RestaurantDetailScreen}
+          options={{ title: 'Detail' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

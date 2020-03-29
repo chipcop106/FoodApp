@@ -3,6 +3,7 @@ import yelp from './../api/yelp';
 export default () => {
     const [restaurants, setRestaurants] = useState([])
     const [errorMessage, setErrorMessage] = useState('');
+    const [loading, setLoading] = useState(true);
     const componentIsMounted = useRef(true);
     const searchApi = async (searchTerm) =>{
         try{
@@ -13,8 +14,12 @@ export default () => {
                     location:'new york'
                 }
             });
-            if(componentIsMounted.current)
-            setRestaurants(response.data.businesses);
+           
+            if(componentIsMounted.current){
+                setRestaurants(response.data.businesses);
+                setLoading(false);
+                console.log('Data response success');
+            }
         }catch(err){
             setErrorMessage(err)
         }
@@ -27,5 +32,5 @@ export default () => {
         }
     }, [])
 
-    return [searchApi,restaurants,errorMessage];
+    return [loading,searchApi,restaurants,errorMessage];
 }

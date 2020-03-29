@@ -4,17 +4,15 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
 Icon.loadFont();
 export default RestaurantCard = ({name,imageSrc,rating,review}) =>{
+  
     return (
         <View style={styles.cardStyle}>
-            <TouchableOpacity>
                 <Image 
                     source={{uri:imageSrc}}
                     style={styles.image}
                 />
-                <Text style={styles.name} numberOfLines={1}>{name}</Text>
-                <Text style={styles.meta}>Rating: {rating} <Icon name="star" color="#E8C960" size={20} />,  Reviews: {review}</Text>
-              
-            </TouchableOpacity>
+                {name ? <Text style={styles.name} numberOfLines={1}>{name}</Text> : null}
+                { rating && review ? <Text style={styles.meta}>Rating: {rating} <Icon name="star" color="#E8C960" size={20} />,  Reviews: {review}</Text> : null}
         </View>
     )
 }
